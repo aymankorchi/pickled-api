@@ -1,22 +1,28 @@
 {
   "name": "pickled-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Pickled API — Node + TypeScript + Express + Sequelize (Postgres)",
+  "main": "dist/server.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "lint": "eslint \"src/**/*.{ts,js}\" --max-warnings=0",
+    "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix",
+    "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all",
+    "test": "jest --passWithNoTests"
   },
-  "keywords": [],
+  "keywords": [
+    "api",
+    "express",
+    "typescript",
+    "sequelize",
+    "postgres"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "@types/express": "^5.0.5",
-    "@types/node": "^24.10.1",
-    "@types/pg": "^8.15.6",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -26,5 +32,22 @@
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.7",
     "sequelize-typescript": "^2.1.6"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.30.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.0",
+    "sequelize-cli": "^6.6.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
   }
 }
