@@ -1,25 +1,30 @@
-import 'reflect-metadata';
+// src/server.ts
 import dotenv from 'dotenv';
+import app from './app';
+import { sequelize, PORT as DEFAULT_PORT } from './config';
+
 dotenv.config();
 
-import { sequelize } from './config/db';
-import app from './app';
+const port = process.env.PORT ? Number(process.env.PORT) : DEFAULT_PORT || 3000;
 
-const port = Number(process.env.PORT) || 3000;
-
-(async () => {
+(async function start() {
   try {
-    console.log('Starting server: attempting DB authenticate...');
     await sequelize.authenticate();
-    console.log('Database authenticated.');
+    // eslint-disable-next-line no-console
+    console.log('Database connection OK');
 
-    console.log('Syncing models...');
+    // Sync models (use { alter: true } or { force: true } only when you understand the effects)
     await sequelize.sync();
-    console.log('Database synced.');
+    // eslint-disable-next-line no-console
+    console.log('Models synchronized');
 
-    app.listen(port, () => console.log(`API running on http://localhost:${port}`));
+    app.listen(port, () => {
+      // eslint-disable-next-line no-console
+      console.log(`API listening on http://localhost:${port}`);
+    });
   } catch (err) {
-    console.error('Failed to start server:', err);
+    // eslint-disable-next-line no-console
+    console.error('Failed to start server', err);
     process.exit(1);
   }
 })();

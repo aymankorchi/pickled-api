@@ -1,5 +1,5 @@
 // src/models/index.ts
+import { sequelize } from '../config';
 import { Product } from './Products';
 
-export { Product };
-export default [Product];
+export { sequelize, Product };

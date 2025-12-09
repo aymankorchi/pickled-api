@@ -1,17 +1,22 @@
-// src/models/Product.ts
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+// src/models/Products.ts
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config';
 
-@Table({ tableName: 'products', timestamps: true })
 export class Product extends Model {
-  @Column({ type: DataType.STRING, allowNull: false })
-  name!: string;
-
-  @Column({ type: DataType.TEXT })
-  description?: string;
-
-  @Column({ type: DataType.DECIMAL(10, 2), allowNull: false })
-  price!: number;
-
-  @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
-  stock!: number;
+  public id!: number;
+  public name!: string;
+  public description?: string;
+  public price!: number;
+  public stock!: number;
 }
+
+Product.init(
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.TEXT },
+    price: { type: DataTypes.FLOAT, allowNull: false },
+    stock: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+  },
+  { sequelize, modelName: 'Product', tableName: 'products' }
+);
